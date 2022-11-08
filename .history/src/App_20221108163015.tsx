@@ -48,21 +48,17 @@ function App() {
 	} */
 
 	const createVideo = async ()=>{
-
 		await ffmpeg.load()
-		.then(async ()=> {
+		.then(async (result)=> {
 
-			ffmpeg.FS('writeFile', "song.mp3", await fetchFile(soundFile as File));
+			//ffmpeg.FS('writeFile', 'image.png', await fetchFile(imageFile as File));
+			ffmpeg.FS('writeFile', 'sound.mp3', await fetchFile(soundFile as File));
 
-			await ffmpeg.run("-y", "-i", "song.mp3", "sometrack.wav", "-c:a", 
-			"libmp3lame", "-b:a", "256k", "-muxdelay", "0", "-f", "segment", 
-			"-sc_threshold", "0", "-segment_time", "7", "-segment_list","playlist.m3u8",
-			"-segment_format","mpegts","file%d.m4a");
+			await ffmpeg.run("-framerate", "1/10", "-i", "image.png", "-i", "sound.mp3",
+			"-c:v", "libx264", "-t", "10", "-pix_fmt", "yuv420p", "-vf", "scale=1920:1080", "test.mp3");
+			const data = ffmpeg.FS('readFile', 'test.mp3');
 
-			const data = ffmpeg.FS('readFile', 'song.mp3');
-			const music = new Blob([data.buffer], {type: 'audio/mp3'});
-
-			console.log(music);
+			console.log()
 		
 		}).catch((error)=>{
 			console.log('ERRO ====> ', error);

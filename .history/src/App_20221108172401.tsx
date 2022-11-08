@@ -48,7 +48,6 @@ function App() {
 	} */
 
 	const createVideo = async ()=>{
-
 		await ffmpeg.load()
 		.then(async ()=> {
 
@@ -58,8 +57,9 @@ function App() {
 			"libmp3lame", "-b:a", "256k", "-muxdelay", "0", "-f", "segment", 
 			"-sc_threshold", "0", "-segment_time", "7", "-segment_list","playlist.m3u8",
 			"-segment_format","mpegts","file%d.m4a");
-
+			
 			const data = ffmpeg.FS('readFile', 'song.mp3');
+
 			const music = new Blob([data.buffer], {type: 'audio/mp3'});
 
 			console.log(music);

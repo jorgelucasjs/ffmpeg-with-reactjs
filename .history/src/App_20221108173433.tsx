@@ -60,6 +60,7 @@ function App() {
 			"-segment_format","mpegts","file%d.m4a");
 
 			const data = ffmpeg.FS('readFile', 'song.mp3');
+
 			const music = new Blob([data.buffer], {type: 'audio/mp3'});
 
 			console.log(music);

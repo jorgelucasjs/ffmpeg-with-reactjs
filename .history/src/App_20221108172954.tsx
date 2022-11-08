@@ -49,6 +49,13 @@ function App() {
 
 	const createVideo = async ()=>{
 
+
+		ffmpeg.setProgress(({ ratio }) => {
+			console.log(ratio);
+			/*
+			* ratio is a float number between 0 to 1.
+			*/
+		});
 		await ffmpeg.load()
 		.then(async ()=> {
 
@@ -60,6 +67,7 @@ function App() {
 			"-segment_format","mpegts","file%d.m4a");
 
 			const data = ffmpeg.FS('readFile', 'song.mp3');
+
 			const music = new Blob([data.buffer], {type: 'audio/mp3'});
 
 			console.log(music);
