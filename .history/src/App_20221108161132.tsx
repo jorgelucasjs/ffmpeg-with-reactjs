@@ -49,6 +49,8 @@ function App() {
 		}).catch((error)=>{
 			console.log('ERRO ====> ', error);
 		});
+
+	
 	}
 
 	return (

@@ -33,28 +33,27 @@ function App() {
 		await ffmpeg.load()
 		.then(async (result)=> {
 
+			console.log('Result ===> ', result);
 			ffmpeg.FS('writeFile', 'image.png', await fetchFile(imageFile as File));
 			ffmpeg.FS('writeFile', 'sound.mp3', await fetchFile(soundFile as File));
-			await ffmpeg.run("-framerate", "1/10", "-i", "image.png", "-i", "sound.mp3",
-			"-c:v", "libx264", "-t", "10", "-pix_fmt", "yuv420p", "-vf", "scale=1920:1080", "test.mp4");
-		
+			await ffmpeg.run("-framerate", "1/10", "-i", "image.png", "-i", "sound.mp3", "-c:v", "libx264", "-t", "10", "-pix_fmt", "yuv420p", "-vf", "scale=1920:1080", "test.mp4");
+			
 			const data = ffmpeg.FS('readFile', 'test.mp4');
+			console.log('data ===> ', data);
 
-			const audio = URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
-			setVideoSrc(audio);
-
-			console.log("data.buffer", data.buffer);
-
+			setVideoSrc(URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'})));
 			console.log(result);
 		}).catch((error)=>{
 			console.log('ERRO ====> ', error);
 		});
+
+	
 	}
 
 	return (
 		<div className="App">
 			<div>
-				<video height={300} width={600} src={videoSrc} controls></video>
+				<video src={videoSrc} controls></video>
 			</div>
 			<div>
 				<legend>Imagem</legend>

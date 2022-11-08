@@ -49,12 +49,14 @@ function App() {
 		}).catch((error)=>{
 			console.log('ERRO ====> ', error);
 		});
+
+	
 	}
 
 	return (
 		<div className="App">
 			<div>
-				<video height={300} width={600} src={videoSrc} controls></video>
+				<video height={300} width= src={videoSrc} controls></video>
 			</div>
 			<div>
 				<legend>Imagem</legend>

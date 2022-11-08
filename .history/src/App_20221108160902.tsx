@@ -43,18 +43,19 @@ function App() {
 			const audio = URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
 			setVideoSrc(audio);
 
-			console.log("data.buffer", data.buffer);
-
+			console.log();
 			console.log(result);
 		}).catch((error)=>{
 			console.log('ERRO ====> ', error);
 		});
+
+	
 	}
 
 	return (
 		<div className="App">
 			<div>
-				<video height={300} width={600} src={videoSrc} controls></video>
+				<video src={videoSrc} controls></video>
 			</div>
 			<div>
 				<legend>Imagem</legend>
